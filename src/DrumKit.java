@@ -1,3 +1,4 @@
+
 /*
  *    Copyright (c) The League of Amazing Programmers 2013-2017
  *    Level 1
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
 public class DrumKit extends MouseAdapter {
 
 	JLabel drumLabelWithImage;
+	JLabel drumPicture;
 
 	public static void main(String[] args) throws Exception {
 		new DrumKit().getGoing();
@@ -42,6 +44,9 @@ public class DrumKit extends MouseAdapter {
 		// project under "default package".
 		// 8. Put the name of your image in a String variable.
 		String drum = "Drum_1.jpg";
+		String drum2 = "drum2.jpg";
+		drumPicture = createLabelImage(drum2);
+
 		// 9. Edit the next line to use your String variable
 		drumLabelWithImage = createLabelImage(drum);
 
@@ -52,19 +57,30 @@ public class DrumKit extends MouseAdapter {
 		a.setLayout(new GridLayout());
 		// 12. call the pack() method on the frame
 		a.pack();
-	
-	// 13. add a mouse listener to drumLabelWithImage.
-drumLabelWithImage.addMouseListener(this);
-}
+		JPanel drum21 = new JPanel();
+		a.add(drum21);
+		drum21.add(drumPicture);
+		a.pack();
+		// 13. add a mouse listener to drumLabelWithImage.
+		drumLabelWithImage.addMouseListener(this);
+		drumPicture.addMouseListener(this);
+	}
+
 	public void mouseClicked(MouseEvent e) {
 		// 14. When the mouse is clicked, print "mouse clicked"
 
-	System.out.println("Mouse Clicked");
+		System.out.println("Mouse Clicked");
 
 		JLabel drumClicked = (JLabel) e.getSource();
-		playSound();
+		if (drumClicked == drumLabelWithImage) {
+			playSound();
+		}
+		if (drumClicked == drumPicture) {
+			playSound2();
+
+		}
 		// 15. Download a drum sound and drop it into your "default package". You can
-		
+
 		// find it on freesound.org. To download it, log in as
 		// leagueofamazi/code4life.
 		// 16. If they clicked on the drumImage...
@@ -72,6 +88,7 @@ drumLabelWithImage.addMouseListener(this);
 		// 17. ...use the playSound method to play a drum sound.
 
 		// 18. Add more images to make a drumkit. Remember to add a mouse listener to
+
 		// each one.
 	}
 
@@ -84,6 +101,12 @@ drumLabelWithImage.addMouseListener(this);
 		Icon icon = new ImageIcon(imageURL);
 		JLabel imageLabel = new JLabel(icon);
 		return imageLabel;
+	}
+
+	private void playSound2() {
+		String drumSound = "BUM.wav";
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(drumSound));
+		sound.play();
 	}
 
 	private void playSound() {
